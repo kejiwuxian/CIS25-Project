@@ -22,6 +22,11 @@ namespace UnitPriceCalculator
 		}
 	}
 
+	int Unit::operator=(int value)
+	{
+		return this->value = static_cast<values>(value);
+	}
+
 	bool Unit::is_valid(int value)
 	{
 		return value >= 0 && value < invalid;
@@ -47,13 +52,23 @@ namespace UnitPriceCalculator
 		return descriptions[value];
 	}
 
+	double Unit::get_conversion_rate(int from, int to)
+	{
+		if (!(is_valid(from) && is_valid(to)))
+		{
+			throw runtime_error("Error: Invalid unit");
+		}
+
+		return conversion_rates[from][to];
+	}
+
 	int Unit::get_value() const { return value; }
 
-	bool Unit::is_valid() const { return Unit::is_valid(value); }
+	bool Unit::is_valid() const { return is_valid(value); }
 
-	string Unit::get_name() const { return Unit::get_name(value); }
+	string Unit::get_name() const { return get_name(value); }
 
-	string Unit::get_description() const { return Unit::get_description(value); }
+	string Unit::get_description() const { return get_description(value); }
 
-	int Unit::operator=(int value) { return this->value = static_cast<values>(value); }
+	double Unit::get_conversion_rate(int to) const { return get_conversion_rate(value, to); }
 }

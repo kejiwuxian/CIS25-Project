@@ -46,6 +46,20 @@ TEST(Unit, get_description)
 	EXPECT_THROW(Unit(Unit::invalid).get_description(), runtime_error);
 }
 
+TEST(Unit, get_conversion_rate)
+{
+	for (int i = 0;i < Unit::invalid;i++)
+	{
+		Unit unit(i);
+		for (int j = 0;j < Unit::invalid;j++)
+		{
+			EXPECT_EQ(unit.get_conversion_rate(j), Unit::conversion_rates[i][j]);
+		}
+	}
+	EXPECT_THROW(Unit::get_conversion_rate(0, Unit::invalid), runtime_error);
+	EXPECT_THROW(Unit::get_conversion_rate(Unit::invalid, 0), runtime_error);
+}
+
 int main(int argc, char** argv)
 {
 	::testing::InitGoogleTest(&argc, argv);
