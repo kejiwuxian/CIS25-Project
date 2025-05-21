@@ -1,10 +1,49 @@
 #include "gtest/gtest.h"
 
 #include "curl.hpp"
+#include "unit.hpp"
+
+using namespace UnitPriceCalculator;
 
 TEST(CURL, fetch)
 {
-	EXPECT_EQ(UnitPriceCalculator::CURL::fetch("https://lonedark.com/").length(), 1416);
+	EXPECT_EQ(CURL::fetch("https://lonedark.com/").length(), 1416);
+}
+
+TEST(Unit, Unit)
+{
+	for (int i = 0;i < Unit::invalid;i++)
+	{
+		EXPECT_TRUE(Unit(Unit::names[i]).is_valid());
+	}
+	EXPECT_FALSE(Unit("Unit").is_valid());
+}
+
+TEST(Unit, is_valid)
+{
+	for (int i = 0;i < Unit::invalid;i++)
+	{
+		EXPECT_TRUE(Unit(i).is_valid());
+	}
+	EXPECT_FALSE(Unit(Unit::invalid).is_valid());
+}
+
+TEST(Unit, get_name)
+{
+	for (int i = 0;i < Unit::invalid;i++)
+	{
+		EXPECT_EQ(Unit(i).get_name(), Unit::names[i]);
+	}
+	EXPECT_THROW(Unit(Unit::invalid).get_name(), runtime_error);
+}
+
+TEST(Unit, get_description)
+{
+	for (int i = 0;i < Unit::invalid;i++)
+	{
+		EXPECT_EQ(Unit(i).get_description(), Unit::descriptions[i]);
+	}
+	EXPECT_THROW(Unit(Unit::invalid).get_description(), runtime_error);
 }
 
 int main(int argc, char** argv)

@@ -1,5 +1,4 @@
-#pragma once
-
+#include <memory>
 #include <stdexcept>// For runtime_error
 
 #ifdef _WIN32 // Windows MSVC
@@ -18,7 +17,7 @@ namespace UnitPriceCalculator
 {
 	string CURL::fetch(const string& url)
 	{
-		char* buf = static_cast<char*>(malloc(1024));	// Dynamically allocate memory and use it as a buffer of char type
+		shared_ptr<char> buf(new char[1024]);	// Dynamically allocate memory and use it as a buffer of char type
 
 		if (!buf)
 		{
@@ -26,7 +25,7 @@ namespace UnitPriceCalculator
 		}
 
 		string cmd = "curl -s \"" + url + "\"";
-		FILE* pipe = popen(cmd.c_str(), "r");			// Execute curl to fetch data from the API
+		FILE* pipe = popen(cmd.c_str(), "r");	// Execute curl to fetch data from the API
 
 		if (!pipe)
 		{
@@ -34,12 +33,11 @@ namespace UnitPriceCalculator
 		}
 
 		string res;
-		while (fgets(buf, 1024, pipe) != nullptr)		// Read the output of curl until it is empty
+		while (fgets(buf.get(), 1024, pipe) != nullptr)	// Read the output of curl until it is empty
 		{
-			res += buf;
+			res += buf.get();
 		}
 
-		free(static_cast<void*>(buf));					// Release dynamically allocated memory
 		pclose(pipe);
 
 		if (res.length() == 0)
