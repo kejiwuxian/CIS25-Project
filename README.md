@@ -2,6 +2,8 @@
 
 This repository contains the source code for CIS25 Project.
 
+### Please stay tuned for a serverless website version of this program written in JavaScript.
+
 Unit Price Calculator.  
 A program that calculates a product's unit price in another weight unit and currency.  
 It also allows user to build sorted catalogs of different products from multiple sources by entering their price tag in different currencies and units.  
