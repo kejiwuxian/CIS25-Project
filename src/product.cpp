@@ -1,35 +1,13 @@
 #include <stdexcept>// For runtime_error
-#include <cctype>	// For tolower
 #include <sstream>	// For ostringstream
 
 #include "product.hpp"
+#include "util.hpp"
 
 using namespace std;
 
 namespace UnitPriceCalculator
 {
-	// Removes leading, and trailing whitespaces, \r and \n then convert to lowercase
-	void strip_and_to_lower(string& str)
-	{
-		// Strip Left
-		while (!str.empty() && string(" \r\n").find(str[0]) != string::npos)
-		{
-			str.erase(0, 1);
-		}
-
-		// Strip Right
-		while (!str.empty() && string(" \r\n").find(str[str.length() - 1]) != string::npos)
-		{
-			str.pop_back();
-		}
-
-		// To Lower
-		for (size_t i = 0;i < str.length();i++)
-		{
-			str[i] = tolower(str[i]);
-		}
-	}
-
 	Product::Product() : name{ "" }, weight{ 0 }, unit{ Unit() }, price{ 0 }, currency{ Currency() }, unit_price{ 0 } {}
 
 	Product::Product(const string& name, double price, const string& currency, double weight, const string& unit, double unit_price)
@@ -52,7 +30,7 @@ namespace UnitPriceCalculator
 		this->name = name;
 
 		// Process price
-		strip_and_to_lower(price_tag);
+		Util::strip_and_to_lower(price_tag);
 		size_t i = price_tag.find_first_not_of("0123456789.-");	// Find the end of the price
 		if (i == string::npos)									// When the end of the price is not found
 		{
@@ -87,7 +65,7 @@ namespace UnitPriceCalculator
 			throw runtime_error("Please type '/' between currency and weight");
 		}
 		str = price_tag.substr(0, i);							// The string for the currency
-		strip_and_to_lower(str);
+		Util::strip_and_to_lower(str);
 		currency = Currency(str);
 		if (!currency.is_valid())
 		{
@@ -96,7 +74,7 @@ namespace UnitPriceCalculator
 		price_tag = price_tag.substr(i + 1);					// Skip the currency
 
 		// Process weight
-		strip_and_to_lower(price_tag);
+		Util::strip_and_to_lower(price_tag);
 		i = price_tag.find_first_not_of("0123456789.-");		// Find the end of the weight
 		if (i == string::npos)									// When the end of the weight is not found
 		{
@@ -125,7 +103,7 @@ namespace UnitPriceCalculator
 		price_tag = price_tag.substr(i);						// Skip the weight
 
 		// Process unit
-		strip_and_to_lower(price_tag);
+		Util::strip_and_to_lower(price_tag);
 		unit = Unit(price_tag);
 		if (!unit.is_valid())
 		{
