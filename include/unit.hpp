@@ -63,6 +63,8 @@ namespace UnitPriceCalculator
 
 		static double get_conversion_rate(int from, int to);
 
+		static double get_conversion_rate(const string& from, const string& to);
+
 		int get_value() const;
 
 		bool is_valid() const;
@@ -72,5 +74,7 @@ namespace UnitPriceCalculator
 		string get_description() const;
 
 		double get_conversion_rate(int to) const;
+
+		double get_conversion_rate(const string& to) const;
 	};
 }

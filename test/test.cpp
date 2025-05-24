@@ -3,6 +3,7 @@
 #include "curl.hpp"
 #include "unit.hpp"
 #include "currency.hpp"
+#include "product.hpp"
 
 using namespace UnitPriceCalculator;
 
@@ -77,6 +78,11 @@ TEST(Currency, get_conversion_rate)
 {
 	EXPECT_TRUE(Currency("usd").get_conversion_rate("cny") > 0);
 	EXPECT_THROW(Currency().get_conversion_rate("cny"), runtime_error);
+}
+
+TEST(Product, print_csv)
+{
+	EXPECT_EQ(Product("A", "usd/lb").print_csv(), "A\t1usd/1lb\t1");
 }
 
 int main(int argc, char** argv)

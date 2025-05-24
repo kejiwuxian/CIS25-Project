@@ -62,6 +62,19 @@ namespace UnitPriceCalculator
 		return conversion_rates[from][to];
 	}
 
+	double Unit::get_conversion_rate(const string& from, const string& to)
+	{
+		Unit f = Unit(from);
+		Unit t = Unit(to);
+
+		if (!(f.is_valid() && t.is_valid()))
+		{
+			throw runtime_error("Error: Invalid unit");
+		}
+
+		return conversion_rates[f.get_value()][t.get_value()];
+	}
+
 	int Unit::get_value() const { return value; }
 
 	bool Unit::is_valid() const { return is_valid(value); }
@@ -71,4 +84,6 @@ namespace UnitPriceCalculator
 	string Unit::get_description() const { return get_description(value); }
 
 	double Unit::get_conversion_rate(int to) const { return get_conversion_rate(value, to); }
+
+	double Unit::get_conversion_rate(const string& to) const { return get_conversion_rate(names[value], to); }
 }

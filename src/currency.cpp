@@ -65,6 +65,11 @@ namespace UnitPriceCalculator
 
 	double Currency::get_conversion_rate(const string& from, const string& to)
 	{
+		if (from == to)
+		{
+			return 1;
+		}
+
 		string res = CURL::fetch(exchange_api_base + "currencies/" + from + ".min.json");
 
 		try
