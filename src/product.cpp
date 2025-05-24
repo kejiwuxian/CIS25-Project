@@ -125,16 +125,16 @@ namespace UnitPriceCalculator
 
 	void Product::set_unit(const string& unit) { this->unit = Unit(unit); }
 
-	double Product::calc_unit_price(const string& unit, const string& currency) const
+	double Product::calc_unit_price(const string& currency, const string& unit) const
 	{
-		double unit_conversion_rate = this->unit.get_conversion_rate(unit);
-		
 		double currency_conversion_rate = this->currency.get_conversion_rate(currency);
 
+		double unit_conversion_rate = this->unit.get_conversion_rate(unit);
+		
 		return price * currency_conversion_rate / weight / unit_conversion_rate;
 	}
 
-	double Product::calc_unit_price() { return unit_price = calc_unit_price("lb", "usd"); }
+	double Product::calc_unit_price() { return unit_price = calc_unit_price("usd", "lb"); }
 
 	string Product::get_name() const { return name; }
 

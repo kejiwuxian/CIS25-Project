@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>	// For string
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -9,10 +9,11 @@ namespace UnitPriceCalculator
 {
 	class Currency
 	{
+	public:
+		static map<string, string> currencies;
+
 	private:
 		inline static const string exchange_api_base = "https://latest.currency-api.pages.dev/v1/";
-
-		static unordered_map<string, string> currencies;
 
 		string value;
 

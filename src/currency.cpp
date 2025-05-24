@@ -7,7 +7,7 @@ using namespace std;
 
 namespace UnitPriceCalculator
 {
-	unordered_map<string, string> Currency::currencies;
+	map<string, string> Currency::currencies;
 
 	Currency::Currency() : value{ "" }
 	{

@@ -36,5 +36,7 @@ namespace UnitPriceCalculator
 		void load(const string& file);
 
 		void save(const string& file) const;
+
+		void print() const;
 	};
 }

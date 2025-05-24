@@ -1,3 +1,5 @@
+#include <iostream>
+#include <iomanip>
 #include <stdexcept>	// For runtime_error
 #include <fstream>		// For ifstream, ofstream
 #include <string>		// For getline
@@ -90,5 +92,15 @@ namespace UnitPriceCalculator
 		}
 
 		s.close();
+	}
+
+	void Catalog::print() const
+	{
+		cout << "Catalog: " << name << endl;
+		for (auto it = catalog.begin();it != catalog.end();it++)
+		{
+			cout << left << setw(128) << it->second.get_name() << setw(16) << setprecision(14) << it->first << "usd per lb" << endl;
+		}
+		cout << endl;
 	}
 }
