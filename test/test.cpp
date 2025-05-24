@@ -2,6 +2,7 @@
 
 #include "curl.hpp"
 #include "unit.hpp"
+#include "currency.hpp"
 
 using namespace UnitPriceCalculator;
 
@@ -58,6 +59,24 @@ TEST(Unit, get_conversion_rate)
 	}
 	EXPECT_THROW(Unit::get_conversion_rate(0, Unit::invalid), runtime_error);
 	EXPECT_THROW(Unit::get_conversion_rate(Unit::invalid, 0), runtime_error);
+}
+
+TEST(Currency, is_valid)
+{
+	EXPECT_TRUE(Currency("usd").is_valid());
+	EXPECT_FALSE(Currency().is_valid());
+}
+
+TEST(Currency, get_description)
+{
+	EXPECT_TRUE(Currency("usd").get_description().length() > 0);
+	EXPECT_THROW(Currency().get_description(), runtime_error);
+}
+
+TEST(Currency, get_conversion_rate)
+{
+	EXPECT_TRUE(Currency("usd").get_conversion_rate("cny") > 0);
+	EXPECT_THROW(Currency().get_conversion_rate("cny"), runtime_error);
 }
 
 int main(int argc, char** argv)
