@@ -4,11 +4,10 @@ This repository contains the source code for CIS25 Project.
 
 Unit Price Calculator.  
 A program that calculates a product's unit price in another weight unit and currency.  
-It prompts users to enter the product's net weight, weight unit, price, currency, target weight unit, and target currency.  
-It then fetches the current currency conversion rate from an API[^1] and calculates the unit price in the target weight unit and target currency.
+It also allows user to build sorted catalogs of different products from multiple sources by entering their price tag in different currencies and units.  
+It fetches the current currency conversion rate from an API[^1] and calculates the unit price in the target weight unit and target currency.
 
-## [Project Presentation](https://youtu.be/TYXPYbKedRk)
-## [Code walk through](https://youtu.be/yvOAlP9YSDo)
+## [Project Presentation](https://youtu.be/tFs2VjBvsQM)
 
 ## How to compile
 ```
