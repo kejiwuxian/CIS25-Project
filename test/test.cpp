@@ -4,6 +4,7 @@
 #include "unit.hpp"
 #include "currency.hpp"
 #include "product.hpp"
+#include "catalog.hpp"
 
 using namespace UnitPriceCalculator;
 
@@ -83,6 +84,15 @@ TEST(Currency, get_conversion_rate)
 TEST(Product, print_csv)
 {
 	EXPECT_EQ(Product("A", "usd/lb").print_csv(), "A\t1usd/1lb\t1");
+}
+
+TEST(Catalog, save_load)
+{
+	Catalog catalog("A");
+	catalog.add_product(Product("A", "usd/lb"));
+	catalog.save("catalog.csv");
+	catalog = Catalog("B", "catalog.csv");
+	EXPECT_EQ(catalog.get_product("A").print_csv(), "A\t1usd/1lb\t1");
 }
 
 int main(int argc, char** argv)
